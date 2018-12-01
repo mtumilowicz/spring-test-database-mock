@@ -1,5 +1,7 @@
 package com.example.spring.databasemock;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -7,9 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by mtumilowicz on 2018-12-01.
  */
 public class InMemoryCustomerRepository implements CustomerRepository {
+    
     private final ConcurrentHashMap<Integer, Customer> map = new ConcurrentHashMap<>();
-
-
+    
     @Override
     public <S extends Customer> S save(S entity) {
         map.put(entity.getId(), entity);
@@ -22,15 +24,15 @@ public class InMemoryCustomerRepository implements CustomerRepository {
     }
 
     @Override
-    public Iterable<Customer> findAll() {
-        return map.values();
+    public List<Customer> findAll() {
+        return new LinkedList<>(map.values());
     }
 
     @Override
     public void deleteById(Integer integer) {
         map.remove(integer);
     }
-    
+
     @Override
     public <S extends Customer> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
