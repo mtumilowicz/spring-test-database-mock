@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/spring-test-database-mock.svg?branch=master)](https://travis-ci.com/mtumilowicz/spring-test-database-mock)
+
 # spring-test-database-mock
 It is often better to provide in memory repository than mocking / h2 during tests.
 
