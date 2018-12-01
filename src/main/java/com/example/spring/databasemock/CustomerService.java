@@ -24,7 +24,7 @@ class CustomerService {
         return customerRepository.findById(id);
     }
     
-    void delete(Integer id) {
+    void deleteById(Integer id) {
         customerRepository.deleteById(id);
     }
     

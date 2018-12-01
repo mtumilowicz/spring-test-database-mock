@@ -1,5 +1,6 @@
 package com.example.spring.databasemock;
 
+import lombok.Builder;
 import lombok.Value;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
  */
 @Entity
 @Value
+@Builder
 class Customer {
     @Id
     Integer id;
