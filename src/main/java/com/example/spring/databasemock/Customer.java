@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Value
 @Builder
-class Customer {
+class Customer implements BaseEntity<Integer> {
     @Id
     Integer id;
     
