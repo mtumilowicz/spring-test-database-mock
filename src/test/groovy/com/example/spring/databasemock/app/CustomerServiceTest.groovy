@@ -1,6 +1,6 @@
 package com.example.spring.databasemock.app
 
-import com.example.spring.databasemock.inmemory.InMemoryCustomerRepository
+import com.example.spring.databasemock.test.customer.InMemoryCustomerRepository
 import spock.lang.Specification 
 /**
  * Created by mtumilowicz on 2018-12-01.

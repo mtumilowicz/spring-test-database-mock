@@ -1,4 +1,4 @@
-package com.example.spring.databasemock.inmemory;
+package com.example.spring.databasemock.test;
 
 import com.example.spring.databasemock.app.BaseEntity;
 import org.springframework.data.repository.CrudRepository;

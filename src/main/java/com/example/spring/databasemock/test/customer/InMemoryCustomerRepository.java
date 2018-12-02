@@ -1,7 +1,8 @@
-package com.example.spring.databasemock.inmemory;
+package com.example.spring.databasemock.test.customer;
 
 import com.example.spring.databasemock.app.Customer;
 import com.example.spring.databasemock.app.CustomerRepository;
+import com.example.spring.databasemock.test.InMemoryCrudRepository;
 
 import java.util.LinkedList;
 import java.util.List;
