@@ -3,13 +3,15 @@ package com.example.spring.databasemock.test
 import org.springframework.data.domain.Example
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
-import spock.lang.Specification 
+import spock.lang.Specification
+import org.springframework.data.domain.PageRequest;
+
 /**
  * Created by mtumilowicz on 2018-12-02.
  */
 class InMemoryBasicJpaRepositoryTest extends Specification {
 
-        def "test save - findById"() {
+    def "test save - findById"() {
         given:
         def repo = new BasicEntityJpaRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
@@ -161,8 +163,8 @@ class InMemoryBasicJpaRepositoryTest extends Specification {
         then:
         repo.count() == 0
     }
-    
-        def "test deleteAll - empty repo"() {
+
+    def "test deleteAll - empty repo"() {
         given:
         def repo = new BasicEntityJpaRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
@@ -199,7 +201,7 @@ class InMemoryBasicJpaRepositoryTest extends Specification {
         then:
         repo.count() == 0
     }
-    
+
     def "test deleteAll(Iterable...)"() {
         given:
         def repo = new BasicEntityJpaRepo()
@@ -212,8 +214,8 @@ class InMemoryBasicJpaRepositoryTest extends Specification {
         then:
         repo.count() == 0
     }
-    
-        def "test deleteAll(Iterable...) - entities not in repo"() {
+
+    def "test deleteAll(Iterable...) - entities not in repo"() {
         given:
         def repo = new BasicEntityJpaRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
@@ -361,7 +363,7 @@ class InMemoryBasicJpaRepositoryTest extends Specification {
 
         when:
         repo.exists((Example) null)
-        
+
         then:
         thrown(UnsupportedOperationException)
     }
@@ -373,6 +375,17 @@ class InMemoryBasicJpaRepositoryTest extends Specification {
         when:
         repo.count((Example) null)
 
+        then:
+        thrown(UnsupportedOperationException)
+    }
+
+    def "test findAll(Pageable pageable)"() {
+        given:
+        def repo = new BasicEntityJpaRepo()
+
+        when:
+        repo.findAll((Pageable) null)
+        
         then:
         thrown(UnsupportedOperationException)
     }

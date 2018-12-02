@@ -22,11 +22,6 @@ public class InMemoryBasicJpaRepository<T extends BaseEntity<ID>, ID>
     }
 
     @Override
-    public Page<T> findAll(Pageable pageable) {
-        return new PageImpl<>(new ArrayList<>(), pageable, storage.size());
-    }
-
-    @Override
     public List<T> findAllById(Iterable<ID> ids) {
         var idsSet = new HashSet<ID>();
         ids.forEach(idsSet::add);
@@ -146,6 +141,11 @@ public class InMemoryBasicJpaRepository<T extends BaseEntity<ID>, ID>
 
     @Override
     public <S extends T> boolean exists(Example<S> example) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Page<T> findAll(Pageable pageable) {
         throw new UnsupportedOperationException();
     }
 }
