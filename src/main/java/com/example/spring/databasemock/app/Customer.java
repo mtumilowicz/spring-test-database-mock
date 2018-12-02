@@ -1,4 +1,4 @@
-package com.example.spring.databasemock;
+package com.example.spring.databasemock.app;
 
 import lombok.Builder;
 import lombok.Value;
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Value
 @Builder
-class Customer implements BaseEntity<Integer> {
+public class Customer implements BaseEntity<Integer> {
     @Id
     Integer id;
     

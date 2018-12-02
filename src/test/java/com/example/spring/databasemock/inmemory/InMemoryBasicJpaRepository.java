@@ -1,5 +1,6 @@
-package com.example.spring.databasemock;
+package com.example.spring.databasemock.inmemory;
 
+import com.example.spring.databasemock.app.BaseEntity;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.example.spring.databasemock;
+package com.example.spring.databasemock.app;
 
 /**
  * Created by mtumilowicz on 2018-12-02.

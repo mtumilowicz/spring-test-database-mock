@@ -1,4 +1,4 @@
-package com.example.spring.databasemock;
+package com.example.spring.databasemock.app;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

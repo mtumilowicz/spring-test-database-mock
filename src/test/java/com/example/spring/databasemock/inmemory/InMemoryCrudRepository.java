@@ -1,5 +1,6 @@
-package com.example.spring.databasemock;
+package com.example.spring.databasemock.inmemory;
 
+import com.example.spring.databasemock.app.BaseEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.HashSet;
