@@ -2,10 +2,12 @@ package com.example.spring.databasemock;
 
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by mtumilowicz on 2018-12-02.
@@ -43,7 +45,14 @@ public class InMemoryCrudRepository<T extends BaseEntity<ID>, ID> implements Cru
 
     @Override
     public Iterable<T> findAllById(Iterable<ID> ids) {
-        return findAll().
+        var idsSet = new HashSet<ID>();
+        ids.forEach(idsSet::add);
+
+        return storage.entrySet()
+                .stream()
+                .filter(entry -> idsSet.contains(entry.getKey()))
+                .map(Map.Entry::getValue)
+                .collect(toList());
     }
 
     @Override
