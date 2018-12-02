@@ -18,7 +18,7 @@ public class InMemoryBasicJpaRepository<T extends BaseEntity<ID>, ID>
         implements JpaRepository<T, ID> {
 
     private final ConcurrentHashMap<ID, T> storage = new ConcurrentHashMap<>();
-    
+
     @Override
     public List<T> findAll() {
         return List.copyOf(storage.values());
@@ -33,7 +33,7 @@ public class InMemoryBasicJpaRepository<T extends BaseEntity<ID>, ID>
     public List<T> findAllById(Iterable<ID> ids) {
         var idsSet = new HashSet<ID>();
         ids.forEach(idsSet::add);
-        
+
         return findAll().stream()
                 .filter(entity -> idsSet.contains(entity.getId()))
                 .collect(Collectors.toList());
@@ -64,17 +64,6 @@ public class InMemoryBasicJpaRepository<T extends BaseEntity<ID>, ID>
         storage.clear();
     }
 
-
-    @Override
-    public <S extends T> S save(S entity) {
-        return null;
-    }
-
-    @Override
-    public <S extends T> List<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
     @Override
     public Optional<T> findById(ID id) {
         return Optional.empty();
@@ -86,58 +75,68 @@ public class InMemoryBasicJpaRepository<T extends BaseEntity<ID>, ID>
     }
 
     @Override
+    public <S extends T> long count(Example<S> example) {
+        return 0;
+    }
+
+    @Override
+    public <S extends T> S save(S entity) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <S extends T> List<S> saveAll(Iterable<S> entities) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public List<T> findAll(Sort sort) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void flush() {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public <S extends T> S saveAndFlush(S entity) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void deleteInBatch(Iterable<T> entities) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void deleteAllInBatch() {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public T getOne(ID id) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public <S extends T> Optional<S> findOne(Example<S> example) {
-        return Optional.empty();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public <S extends T> List<S> findAll(Example<S> example) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public <S extends T> List<S> findAll(Example<S> example, Sort sort) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public <S extends T> Page<S> findAll(Example<S> example, Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public <S extends T> long count(Example<S> example) {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
