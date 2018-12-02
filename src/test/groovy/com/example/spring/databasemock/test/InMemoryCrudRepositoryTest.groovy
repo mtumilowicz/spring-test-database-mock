@@ -1,9 +1,7 @@
 package com.example.spring.databasemock.test
 
-import com.example.spring.databasemock.app.BaseEntity
 import groovy.transform.Immutable
-import spock.lang.Specification
-
+import spock.lang.Specification 
 /**
  * Created by mtumilowicz on 2018-12-02.
  */
@@ -11,37 +9,37 @@ class InMemoryCrudRepositoryTest extends Specification {
     def "test save - findById"() {
         given:
         def repo = new BasicEntityRepo()
-        def basicEntity = new BasicEntity(1)
+        def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
-        repo.save(basicEntity)
+        repo.save(be1)
 
         then:
-        repo.findById(1) == basicEntity
+        repo.findById(1) == Optional.of(be1)
     }
 
-    def "test save - if you put an entity with ID that already exists it is omitted"() {
+    def "test save - if you put an entity with ID that already exists - exception"() {
         given:
         def repo = new BasicEntityRepo()
-        def first = new BasicEntity(1)
-        def second = new BasicEntity(1)
+        def be1 = new BasicEntity(id: 1, name: "1")
+        def be2 = new BasicEntity(id: 1, name: "2")
 
         when:
-        repo.save(basicEntity)
+        repo.save(be1)
+        repo.save(be2)
 
         then:
-        repo.findById(1) == first
-        repo.findById(1) == second
+        thrown(Exception)
     }
 
     def "test saveAll"() {
         given:
         def repo = new BasicEntityRepo()
-        def be1 = new BasicEntity(1)
-        def be2 = new BasicEntity(2)
+        def be1 = new BasicEntity(id: 1, name: "1")
+        def be2 = new BasicEntity(id: 2, name: "2")
 
         when:
-        repo.save([be1, be2])
+        repo.saveAll([be1, be2])
 
         then:
         repo.findById(1).isPresent()
@@ -59,10 +57,10 @@ class InMemoryCrudRepositoryTest extends Specification {
     def "test save - existsById"() {
         given:
         def repo = new BasicEntityRepo()
-        def basicEntity = new BasicEntity(1)
+        def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
-        repo.save(basicEntity)
+        repo.save(be1)
 
         then:
         repo.existsById(1)
@@ -79,14 +77,15 @@ class InMemoryCrudRepositoryTest extends Specification {
     def "test save - findAll"() {
         given:
         def repo = new BasicEntityRepo()
-        def be1 = new BasicEntity(1)
-        def be2 = new BasicEntity(1)
+        def be1 = new BasicEntity(id: 1, name: "1")
+        def be2 = new BasicEntity(id: 2, name: "2")
 
         when:
-        repo.save(basicEntity)
+        repo.saveAll([be1, be2])
 
         then:
-        repo.findAll() == [be1, be2]
+        repo.findAll().size() == 2
+        repo.findAll().containsAll([be1, be2])
     }
 
     def "test save - findAll no entities"() {
@@ -94,17 +93,22 @@ class InMemoryCrudRepositoryTest extends Specification {
         def repo = new BasicEntityRepo()
 
         expect:
-        repo.findAll() == []
+        repo.findAll().isEmpty()
     }
 
-//    def "test findAllById"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
+    def "test findAllById"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+        def be2 = new BasicEntity(id: 2, name: "2")
+        def be3 = new BasicEntity(id: 3, name: "3")
+
+        when:
+        repo.saveAll([be1, be2, be3])
+
+        then:
+        repo.findAllById([1, 2]) == [be1, be2]
+    }
 //
 //    def "test count"() {
 //        given:
@@ -150,13 +154,4 @@ class InMemoryCrudRepositoryTest extends Specification {
 //        then:
 //        // TODO implement assertions
 //    }
-}
-
-@Immutable
-class BasicEntity implements BaseEntity<Integer> {
-    Integer id
-}
-
-class BasicEntityRepo extends InMemoryCrudRepository<BasicEntity, Integer> {
-
 }

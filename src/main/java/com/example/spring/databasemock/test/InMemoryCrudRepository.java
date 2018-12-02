@@ -18,13 +18,16 @@ public class InMemoryCrudRepository<T extends BaseEntity<ID>, ID> implements Cru
 
     @Override
     public <S extends T> S save(S entity) {
+        if (storage.containsKey(entity.getId())) {
+            throw new IllegalStateException();
+        }
         storage.put(entity.getId(), entity);
         return entity;
     }
 
     @Override
     public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
-        entities.forEach(entity -> storage.put(entity.getId(), entity));
+        entities.forEach(this::save);
 
         return entities;
     }
