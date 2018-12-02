@@ -1,7 +1,8 @@
 package com.example.spring.databasemock.test
 
 import groovy.transform.Immutable
-import spock.lang.Specification 
+import spock.lang.Specification
+
 /**
  * Created by mtumilowicz on 2018-12-02.
  */
@@ -109,49 +110,137 @@ class InMemoryCrudRepositoryTest extends Specification {
         then:
         repo.findAllById([1, 2]) == [be1, be2]
     }
-//
-//    def "test count"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test deleteById"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test delete"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test deleteAll"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test deleteAll1"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
+
+    def "test count - empty"() {
+        given:
+        def repo = new BasicEntityRepo()
+
+        expect:
+        repo.count() == 0
+    }
+
+    def "test count"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.save(be1)
+
+        then:
+        repo.count() == 1
+    }
+
+    def "test deleteById - exists"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.save(be1)
+        repo.deleteById(1)
+
+        then:
+        repo.count() == 0
+    }
+
+    def "test deleteById - not exists"() {
+        given:
+        def repo = new BasicEntityRepo()
+
+        when:
+        repo.deleteById(1)
+
+        then:
+        repo.count() == 0
+    }
+
+
+    def "test delete - exists"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.save(be1)
+        repo.delete(be1)
+
+        then:
+        repo.count() == 0
+    }
+
+    def "test delete not exists"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.delete(be1)
+
+        then:
+        repo.count() == 0
+    }
+
+    def "test deleteAll - empty repo"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.deleteAll()
+
+        then:
+        repo.count() == 0
+    }
+
+    def "test deleteAll"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.save(be1)
+        repo.deleteAll()
+
+        then:
+        repo.count() == 0
+    }
+
+
+    def "test deleteAll(Iterable...) - empty repo"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.deleteAll([])
+
+        then:
+        repo.count() == 0
+    }
+    
+    def "test deleteAll(Iterable...)"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.save(be1)
+        repo.deleteAll([be1])
+
+        then:
+        repo.count() == 0
+    }
+    
+        def "test deleteAll(Iterable...) - entities not in repo"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(id: 1, name: "1")
+
+        when:
+        repo.deleteAll([be1])
+
+        then:
+        repo.count() == 0
+    }
 }
