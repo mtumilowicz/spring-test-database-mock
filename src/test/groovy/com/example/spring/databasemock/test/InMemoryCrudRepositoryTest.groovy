@@ -1,6 +1,6 @@
 package com.example.spring.databasemock.test
 
-import groovy.transform.Immutable
+
 import spock.lang.Specification
 
 /**
@@ -9,7 +9,7 @@ import spock.lang.Specification
 class InMemoryCrudRepositoryTest extends Specification {
     def "test save - findById"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -21,7 +21,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test save - if you put an entity with ID that already exists - exception"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
         def be2 = new BasicEntity(id: 1, name: "2")
 
@@ -35,7 +35,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test saveAll"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
         def be2 = new BasicEntity(id: 2, name: "2")
 
@@ -49,7 +49,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test findById - not found"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
 
         expect:
         repo.findById(1).isEmpty()
@@ -57,7 +57,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test save - existsById"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -69,7 +69,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test NOT existsById"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
 
         expect:
         !repo.existsById(1)
@@ -77,7 +77,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test save - findAll"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
         def be2 = new BasicEntity(id: 2, name: "2")
 
@@ -91,7 +91,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test save - findAll no entities"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
 
         expect:
         repo.findAll().isEmpty()
@@ -99,7 +99,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test findAllById"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
         def be2 = new BasicEntity(id: 2, name: "2")
         def be3 = new BasicEntity(id: 3, name: "3")
@@ -113,7 +113,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test count - empty"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
 
         expect:
         repo.count() == 0
@@ -121,7 +121,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test count"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -133,7 +133,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test deleteById - exists"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -146,7 +146,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test deleteById - not exists"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
 
         when:
         repo.deleteById(1)
@@ -158,7 +158,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test delete - exists"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -171,7 +171,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test delete not exists"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -183,7 +183,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test deleteAll - empty repo"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -195,7 +195,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test deleteAll"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -209,7 +209,7 @@ class InMemoryCrudRepositoryTest extends Specification {
 
     def "test deleteAll(Iterable...) - empty repo"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -221,7 +221,7 @@ class InMemoryCrudRepositoryTest extends Specification {
     
     def "test deleteAll(Iterable...)"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
@@ -234,7 +234,7 @@ class InMemoryCrudRepositoryTest extends Specification {
     
         def "test deleteAll(Iterable...) - entities not in repo"() {
         given:
-        def repo = new BasicEntityRepo()
+        def repo = new BasicEntityCrudRepo()
         def be1 = new BasicEntity(id: 1, name: "1")
 
         when:
