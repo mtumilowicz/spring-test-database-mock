@@ -39,95 +39,117 @@ class InMemoryCrudRepositoryTest extends Specification {
         def repo = new BasicEntityRepo()
         def be1 = new BasicEntity(1)
         def be2 = new BasicEntity(2)
-        
+
         when:
         repo.save([be1, be2])
-        
+
         then:
         repo.findById(1).isPresent()
         repo.findById(2).isPresent()
     }
 
-    def "test findById"() {
+    def "test findById - not found"() {
         given:
+        def repo = new BasicEntityRepo()
 
-        when:
-        // TODO implement stimulus
-        then:
-        // TODO implement assertions
+        expect:
+        repo.findById(1).isEmpty()
     }
 
-    def "test existsById"() {
+    def "test save - existsById"() {
         given:
+        def repo = new BasicEntityRepo()
+        def basicEntity = new BasicEntity(1)
 
         when:
-        // TODO implement stimulus
+        repo.save(basicEntity)
+
         then:
-        // TODO implement assertions
+        repo.existsById(1)
     }
 
-    def "test findAll"() {
+    def "test NOT existsById"() {
         given:
+        def repo = new BasicEntityRepo()
+
+        expect:
+        !repo.existsById(1)
+    }
+
+    def "test save - findAll"() {
+        given:
+        def repo = new BasicEntityRepo()
+        def be1 = new BasicEntity(1)
+        def be2 = new BasicEntity(1)
 
         when:
-        // TODO implement stimulus
+        repo.save(basicEntity)
+
         then:
-        // TODO implement assertions
+        repo.findAll() == [be1, be2]
     }
 
-    def "test findAllById"() {
+    def "test save - findAll no entities"() {
         given:
+        def repo = new BasicEntityRepo()
 
-        when:
-        // TODO implement stimulus
-        then:
-        // TODO implement assertions
+        expect:
+        repo.findAll() == []
     }
 
-    def "test count"() {
-        given:
-
-        when:
-        // TODO implement stimulus
-        then:
-        // TODO implement assertions
-    }
-
-    def "test deleteById"() {
-        given:
-
-        when:
-        // TODO implement stimulus
-        then:
-        // TODO implement assertions
-    }
-
-    def "test delete"() {
-        given:
-
-        when:
-        // TODO implement stimulus
-        then:
-        // TODO implement assertions
-    }
-
-    def "test deleteAll"() {
-        given:
-
-        when:
-        // TODO implement stimulus
-        then:
-        // TODO implement assertions
-    }
-
-    def "test deleteAll1"() {
-        given:
-
-        when:
-        // TODO implement stimulus
-        then:
-        // TODO implement assertions
-    }
+//    def "test findAllById"() {
+//        given:
+//
+//        when:
+//        // TODO implement stimulus
+//        then:
+//        // TODO implement assertions
+//    }
+//
+//    def "test count"() {
+//        given:
+//
+//        when:
+//        // TODO implement stimulus
+//        then:
+//        // TODO implement assertions
+//    }
+//
+//    def "test deleteById"() {
+//        given:
+//
+//        when:
+//        // TODO implement stimulus
+//        then:
+//        // TODO implement assertions
+//    }
+//
+//    def "test delete"() {
+//        given:
+//
+//        when:
+//        // TODO implement stimulus
+//        then:
+//        // TODO implement assertions
+//    }
+//
+//    def "test deleteAll"() {
+//        given:
+//
+//        when:
+//        // TODO implement stimulus
+//        then:
+//        // TODO implement assertions
+//    }
+//
+//    def "test deleteAll1"() {
+//        given:
+//
+//        when:
+//        // TODO implement stimulus
+//        then:
+//        // TODO implement assertions
+//    }
 }
 
 @Immutable
