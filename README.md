@@ -34,10 +34,10 @@ Instead of mocking / h2 in tests it is often better to provide in memory mock re
     }
     ```
     **remark**: we use only 4 method from `CustomerRepository`:
-        * `save`
-        * `findById`
-        * `deleteById`
-        * `findAll`
+    * `save`
+    * `findById`
+    * `deleteById`
+    * `findAll`
 1. and we have a `CustomerRepository` (simple extension of spring `CrudRepository`)
     ```
     @Repository
@@ -77,7 +77,7 @@ method we simply provide `InMemoryCustomerRepository` implementation:
         ... other methods
     }
     ```
-    and we pass it to CustomerService constructor in tests, for example
+    and we pass it to `CustomerService` constructor in tests, for example
     ```
     def "save - findById"() {
             given:
